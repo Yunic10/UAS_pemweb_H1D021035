@@ -1,6 +1,10 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PenilaianController;
+use App\Http\Controllers\KaryawanController;
+use App\Http\Controllers\DivisiController;
+use App\Http\Controllers\KompetensiController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,5 +31,10 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+Route::resource('/penilaian', PenilaianController::class);
+Route::resource('/karyawan', KaryawanController::class);
+Route::resource('/divisi', DivisiController::class);
+Route::resource('/kompetensi', KompetensiController::class);
 
 require __DIR__.'/auth.php';
