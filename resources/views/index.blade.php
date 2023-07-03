@@ -18,10 +18,6 @@
             <a href="{{ route('divisi.create') }}"><button class="btn btn-primary">Tambah Divisi</button></a>
             <a href="{{ route('kompetensi.create') }}"><button class="btn btn-primary">Tambah Kompetensi</button></a>
             <a href="{{ route('penilaian.create') }}"><button class="btn btn-primary">Tambah Penilaian</button></a>
-            {{-- <a href="{{ route('tugas.create') }}" ><button class="btn btn-primary">Tambah Data Tugas</button></a>
-            <a class="btn btn-primary my-2 @if (Route::is('tugas.belum')) disabled @endif" href="{{ route('tugas.belum') }}" role="button">Lihat Tugas Belum Selesai</a>
-            <a class="btn btn-primary my-2 @if (Route::is('tugas.selesai')) disabled @endif" href="{{ route('tugas.selesai') }}" role="button">Lihat Tugas Selesai</a>
-            <a class="btn btn-primary my-2 @if (Route::is('tugas.index')) disabled @endif" href="{{ route('tugas.index') }}" role="button">Lihat Semua Tugas</a> --}}
             </ul>
         <div class="tabel">
         <table id="data" class="table table-striped table-bordered" width="100%" align="center">
@@ -31,6 +27,7 @@
                 <td>Alamat</td>
                 <td>Kompetensi</td>
                 <td>Nilai</td>
+                <td>Aksi</td>
             </thead>
             <tbody>
             @php $i = 1; @endphp
@@ -39,31 +36,16 @@
                 <td>{{ $i++ }}</td>
                 <td>{{ $p->karyawan->nama_karyawan }}</td>
                 <td>{{ $p->karyawan->alamat }}</td>
-                {{-- <td>@if ($t->status) Selesai @else Belum selesai @endif</td> --}}
                 <td>{{ $p->kompetensi->kompetensi }}</td>
                 <td>{{ $p->nilai }}</td>
-                {{-- <td>
-                    <form style="display: inline;" action="{{ route('tugas.set', ['id' => $t->id, 'status' => 0]) }}" method="post">
-                        @csrf
-                        @method('PUT')
-                        <button title="Set tugas sebagai incomplete" type="submit" class="btn btn-warning">
-                            <i class="fa-solid fa-stopwatch" style="color: #ffffff;"></i>
-                        </button>
-                    </form>
-                    <form style="display: inline;" action="{{ route('tugas.set', ['id' => $t->id, 'status' => 1]) }}" method="post">
-                        @csrf
-                        @method('PUT')
-                        <button title="Set tugas sebagai complete" type="submit" class="btn btn-success">
-                            <i class="fa-solid fa-check" style="color: #ffffff;"></i>
-                        </button>
-                    </form><br><br>
-                    <a href="{{ route('tugas.edit',['tuga'=> $t->id]) }}"><button class="btn btn-success">Edit</button></a>
-                    <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#hapus.{{ $t->id }}">Hapus</button>
-                </td> --}}
+                <td>
+                    <a href="{{ route('penilaian.edit',['penilaian'=> $p->id]) }}"><button class="btn btn-success">Edit</button></a>
+                    <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#hapus.{{ $p->id }}">Hapus</button>
+                </td>
             
 
             <!-- Modal Hapus -->
-            {{-- <div class="modal fade" id="hapus.{{ $t->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="hapus.{{ $p->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                 <div class="modal-header">
@@ -71,10 +53,10 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    Anda yakin ingin menghapus data tugas dengan judul "{{ $t->judul }}"   ?
+                    Anda yakin ingin menghapus data "{{ $p->karyawan->nama_karyawan }}"   ?
                 </div>
                 <div class="modal-footer">
-                    <form action="{{ route('tugas.destroy', ['tuga'=> $t->id]) }}" method="post">
+                    <form action="{{ route('penilaian.destroy', ['penilaian'=> $p->id]) }}" method="post">
                         @csrf
                         @method('DELETE')
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
@@ -84,7 +66,7 @@
                 </div>
                 </div>
             </div>
-            </div> --}}
+            </div>
             <!-- End Modal -->
             </tr>
             @endforeach

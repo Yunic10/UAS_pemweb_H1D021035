@@ -20,7 +20,9 @@ class DivisiController extends Controller
      */
     public function create()
     {
-        //
+        return view('tambahdivisi', [
+            'divisi' => Divisi::all()
+        ]);
     }
 
     /**
@@ -29,6 +31,10 @@ class DivisiController extends Controller
     public function store(Request $request)
     {
         //
+        $divisi = new Divisi;
+        $divisi->nama_divisi = $request->divisi;
+        $divisi->save();
+        return redirect()->route('penilaian.index');
     }
 
     /**
@@ -58,8 +64,10 @@ class DivisiController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Divisi $divisi)
+    public function destroy(string $id)
     {
         //
+        Divisi::destroy($id);
+        return redirect()->route('penilaian.index');
     }
 }

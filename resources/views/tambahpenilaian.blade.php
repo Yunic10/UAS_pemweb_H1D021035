@@ -11,33 +11,38 @@
     <script src="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css"></script>
     </head>
     <body class="mx-auto my-4 w-75">
-        <h1 class="text-center">Tambah Karyawan</h1>
+        <h1 class="text-center">Tambah Penilaian</h1>
         <a class="btn btn-secondary my-2" href="{{ route('penilaian.index') }}" role="button">Kembali</a>
         <div class="card mt-1 mb-4">
-        <form action="{{ route('karyawan.store') }}" class="card-body" method=POST>
+        <form action="{{ route('penilaian.store') }}" class="card-body" method=POST>
             @csrf
             <div class="row my-2">
                 <div class="col">
-                    <label for="formInputKaryawan" class="form-label">Nama</label>
-                    <input name="karyawan" type="text" class="form-control" id="formInputKaryawan" placeholder="Masukkan Nama Karyawan" required>
-                </div>
-            </div>
-            <div class="row my-2">
-                <div class="col">
-                    <label for="formInputAlamat" class="form-label">Alamat</label>
-                    <input name="alamat" type="text" class="form-control" id="formInputAlamat" placeholder="Tulis Alamat" required>
-                </div>
-            </div>
-            <div class="row my-2">
-                <div class="col">
-                    <label for="formInputDivisi" class="form-label">Divisi</label><br>
-                    <select name="divisi" id="divisi">
-                        @foreach ($karyawan as $k)
-                        <option value="{{ $k->id }}">{{ $k->nama_divisi }}</option>
+                    <label for="formInputKaryawan" class="form-label">Nama Karyawan</label><br>
+                    <select name="karyawan" id="karyawan">
+                        @foreach ($karyawan as $p)
+                        <option value="{{ $p->id }}">{{ $p->nama_karyawan }}</option>
                         @endforeach
                     </select>
                 </div>
             </div>
+            <div class="row my-2">
+                <div class="col">
+                    <label for="formInputKompetensi" class="form-label">Jenis Kompetensi</label><br>
+                    <select name="kompetensi" id="kompetensi">
+                        @foreach ($kompetensi as $k)
+                        <option value="{{ $k->id }}">{{ $k->kompetensi }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+            <div class="row my-2">
+                <div class="col">
+                    <label for="formInputNilai" class="form-label">Nilai</label>
+                    <input name="nilai" type="text" class="form-control" id="formInputNilai" placeholder="Masukkan Nilai" required>
+                </div>
+            </div>
+            
             <div class="mt-4 mb-2">
                 <button type="submit" class="btn btn-primary w-25">Tambah</button>
             </div>

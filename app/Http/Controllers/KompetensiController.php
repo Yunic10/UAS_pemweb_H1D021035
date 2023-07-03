@@ -13,7 +13,9 @@ class KompetensiController extends Controller
     public function index()
     {
         //
-        
+        return view('tambahkompetensi', [
+            'kompetensi' => Kompetensi::all()
+        ]);
     }
 
     /**
@@ -22,6 +24,10 @@ class KompetensiController extends Controller
     public function create()
     {
         //
+        return view('tambahkompetensi', [
+            'kompetensi' => Kompetensi::all()
+        ]);
+        
     }
 
     /**
@@ -30,6 +36,10 @@ class KompetensiController extends Controller
     public function store(Request $request)
     {
         //
+        $kompetensi = new Kompetensi;
+        $kompetensi->kompetensi = $request->kompetensi;
+        $kompetensi->save();
+        return redirect()->route('penilaian.index');
     }
 
     /**
@@ -59,8 +69,10 @@ class KompetensiController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Kompetensi $kompetensi)
+    public function destroy(string $id)
     {
         //
+        Kompetensi::destroy($id);
+        return redirect()->route('penilaian.index');
     }
 }

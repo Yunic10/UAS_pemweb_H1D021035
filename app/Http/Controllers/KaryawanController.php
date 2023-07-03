@@ -69,8 +69,10 @@ class KaryawanController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Karyawan $karyawan)
+    public function destroy(string $id)
     {
         //
+        Karyawan::destroy($id);
+        return redirect()->route('penilaian.index');
     }
 }

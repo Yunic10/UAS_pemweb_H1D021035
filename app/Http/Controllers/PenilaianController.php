@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Penilaian;
+use App\Models\Karyawan;
+use App\Models\Kompetensi;
 use Illuminate\Http\Request;
 
 class PenilaianController extends Controller
@@ -24,6 +26,10 @@ class PenilaianController extends Controller
     public function create()
     {
         //
+        return view('tambahpenilaian', [
+            'kompetensi' => Kompetensi::all()
+        ], ['karyawan' => Karyawan::all()
+    ]);
     }
 
     /**
@@ -32,6 +38,12 @@ class PenilaianController extends Controller
     public function store(Request $request)
     {
         //
+        $penilaian = new Penilaian;
+        $penilaian->karyawan_id = $request->karyawan;
+        $penilaian->kompetensi_id = $request->kompetensi;
+        $penilaian->nilai = $request->nilai;
+        $penilaian->save();
+        return redirect()->route('penilaian.index');
     }
 
     /**
@@ -45,24 +57,37 @@ class PenilaianController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Penilaian $penilaian)
+    public function edit(string $id)
     {
         //
+        return view('editpenilaian', [
+            'penilaian' => Penilaian::find($id),
+            'kompetensi' => Kompetensi::all(),
+            'karyawan' => Karyawan::all()
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Penilaian $penilaian)
+    public function update(Request $request, string $id)
     {
         //
+        $penilaian = Penilaian::find($id);
+        $penilaian->karyawan_id = $request->karyawan;
+        $penilaian->kompetensi_id = $request->kompetensi;
+        $penilaian->nilai = $request->nilai;
+        $penilaian->save();
+        return redirect()->route('penilaian.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Penilaian $penilaian)
+    public function destroy(string $id)
     {
         //
+        Penilaian::destroy($id);
+        return redirect()->route('penilaian.index');
     }
 }
